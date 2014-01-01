@@ -1,3 +1,7 @@
 #!/bin/bash
 
-/usr/bin/node core/main.js
+cd "$(dirname "$0")"
+installdir="$PWD"
+cd "$OLDPWD"
+
+/usr/bin/node "$installdir/core/main.js"
