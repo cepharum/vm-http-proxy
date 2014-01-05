@@ -47,8 +47,9 @@ Currently the proxy works with LXC, only. It's expecting all LXC containers to b
 # Installation
 
 1. [Download ZIP](https://github.com/cepharum/vm-http-proxy/archive/master.zip) to your physical host running LXC containers und unzip it into folder of your choice. It's okay to put it under /opt or into subfolder of your unprivileged user's home directory.
-2. Adjust configuration in file `node_modules/config.js`. Basically, adjust the IPv4 address to listen on for incoming requests to be forwarded.
-3. Invoke run.sh to instantly test the proxy.
+2. Copy `node_modules/config.js.dist` to `node_modules/config.js`.
+3. Adjust configuration in file `node_modules/config.js`. Basically, adjust the IPv4 address to listen on for incoming requests to be forwarded.
+4. Invoke run.sh to instantly test the proxy.
 
 ## Install System Service
 
