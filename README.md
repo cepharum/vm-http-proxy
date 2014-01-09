@@ -29,6 +29,12 @@ in header of each request. Looking up hostname is considered to result in a loca
 The script is extracting a map of IPv4 and IPv6 addresses from all local LXC containers' configuration files.
 Target VM is selected by looking up IPv6 AAAA record of host named in HTTP request. The returned IPv6 address is then looked up in address map extracted before resulting in VM's (obviously local-only) IPv4 address the request is forwarded to, finally.
 
+### Example VM Server Setup
+
+In our blog there is a [tutorial](http://blog.cepharum.de/en/post/lxc-host-featuring-ipv6-connectivity.html) 
+describing how to set up a physical host running LXC-based VM containers including support for IPv6 and IPv4. 
+The resulting setup is perfectly suitable for running *vm-http-proxy* as we do on our VM servers.
+
 
 
 # System Requirements
