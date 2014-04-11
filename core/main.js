@@ -28,6 +28,9 @@ function http_listener( request, response, blnSecure ) {
 		// hostname selected in request
 		hostname : null,
 
+		// original URL
+		originalUrl : null,
+
 		// request to process
 		request  : request,
 
@@ -70,6 +73,10 @@ function http_listener( request, response, blnSecure ) {
 	// log request
 	LOG.info( "%s: %s %s %s%s", ctx.index, request.method, request.headers.host, request.url, ctx.isHttps ? " (https)" : "" );
 
+
+
+	// save originally requested URL for it's adjusted next
+	ctx.originalUrl = ( ctx.isHttps ? "https://" : "http://" ) + ctx.request.headers.host + ctx.request.url;
 
 	/*
 	 * extract name of host this request is actually targeting at
@@ -122,6 +129,9 @@ function http_listener( request, response, blnSecure ) {
 				headers["x-forwarded-for"] = request.socket.remoteAddress;
 
 			headers["x-https"] = ctx.isHttps ? "1" : "";
+			headers["x-original-url"] = ctx.originalUrl;
+
+//			delete headers.connection;
 
 			var bytesReturned = 0;
 			var bytesReceived = 0;
