@@ -26,6 +26,7 @@ var URL      = require( "url" );
 
 var CONFIG   = require( "config" );
 var REDIRECT = require( "redirect" );
+var REWRITE  = require( "rewrite" );
 var NETWORK  = require( "network" );
 var LOG      = require( "log" );
 
@@ -101,6 +102,16 @@ function http_listener( request, response, blnSecure ) {
 	LOG.info( "%s: %s %s %s%s", ctx.index, request.method, request.headers.host, request.url, ctx.isHttps ? " (https)" : "" );
 
 
+	// force HTTPS?
+	if ( !ctx.isHttps && CONFIG.forceHttps ) {
+		LOG.info( "%s: enforcing HTTPS on %s", ctx.index, "http://" + ctx.request.headers.host + ctx.request.url );
+		ctx.response.writeHead( 301, {
+			"Location": "https://" + ctx.request.headers.host + ctx.request.url
+		} );
+		ctx.response.end();
+		return;
+	}
+
 
 	// save originally requested URL for it's adjusted next
 	ctx.originalUrl = ( ctx.isHttps ? "https://" : "http://" ) + ctx.request.headers.host + ctx.request.url;
@@ -109,7 +120,7 @@ function http_listener( request, response, blnSecure ) {
 	 * extract name of host this request is actually targeting at
 	 */
 
-	if ( ctx.isHttps && ( !CONFIG.sslHostname || request.headers.host == CONFIG.sslHostname ) ) {
+	if ( ctx.isHttps && ( !CONFIG.sslHostname || request.headers.host === CONFIG.sslHostname ) ) {
 		// HTTPS: extract first part of pathname to select host
 
 		// extract pathname from request URL and split into pieces
@@ -127,6 +138,10 @@ function http_listener( request, response, blnSecure ) {
 	} else {
 		// HTTP: hostname is selected in header field "Host"
 		ctx.hostname = request.headers.host;
+	}
+
+	if ( ctx.hostname ) {
+		REWRITE.processRequest( ctx );
 	}
 
 	if ( !ctx.hostname )
