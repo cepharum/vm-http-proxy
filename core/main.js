@@ -31,6 +31,12 @@ var LOG      = require( "log" );
 
 // ----------------------------------------------------------------------------
 
+var httpAgent = new HTTP.Agent( {
+	keepAlive: true,
+	maxSockets: 10000
+} );
+
+
 NETWORK.initializeAdressMap( CONFIG.vmPlugin.getAvailableContainers() );
 
 var requestId = 0;
@@ -164,6 +170,7 @@ function http_listener( request, response, blnSecure ) {
 				path: request.url,
 				method: request.method,
 				headers: headers,
+				agent: httpAgent
 			}, function( subresponse ) {
 				// ensure to log again after response has been passed completely
 
