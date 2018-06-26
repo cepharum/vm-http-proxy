@@ -65,15 +65,15 @@ Currently the proxy works with LXC, only. It's expecting all LXC containers to b
 
 In Ubuntu Linux you may install new upstart job like this:
 
-1. Update `http-proxy.conf` to contain proper pathname. Change `/home/myuser/http-proxy` to the pathname of local installation folder of http-proxy.
-2. Copy `http-proxy.conf` to `/etc/init`.
-3. Start service w/ `start http-proxy`
+1. Update `vm-http-proxy.conf` to contain proper pathname. Change `/home/myuser/vm-http-proxy` to the pathname of local installation folder of vm-http-proxy.
+2. Copy `vm-http-proxy.conf` to `/etc/init`.
+3. Start service w/ `start vm-http-proxy`
 
 #### Using systemd (since 16.04 LTS)
 
-When using systemd you may install http-proxy as a service like this:
+When using systemd you may install vm-http-proxy as a service like this:
 
-1. Update `http-proxy.service` to contain proper pathname. Change `/home/myuser/http-proxy` to the pathname of local installation folder of http-proxy.
-2. Copy `http-proxy.service` to `/etc/systemd/system`.
+1. Update `vm-http-proxy.service` to contain proper pathname. Change `/home/myuser/vm-http-proxy` to the pathname of local installation folder of vm-http-proxy.
+2. Copy `vm-http-proxy.service` to `/etc/systemd/system`.
 3. Let systemd discover this new service by running `systemctl daemon-reload`.
-4. Start service w/ `systemctl start http-proxy`.
+4. Start service w/ `systemctl start vm-http-proxy`.

@@ -4,7 +4,7 @@ Description=Dynamic VM HTTP Proxy
 [Service]
 Type=simple
 Restart=on-failure
-ExecStart=/home/myuser/http-proxy/run.sh
+ExecStart=/home/myuser/vm-http-proxy/run.sh
 
 [Install]
 WantedBy=multi-user.target
