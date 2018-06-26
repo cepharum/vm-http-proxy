@@ -1,0 +1,10 @@
+[Unit]
+Description=Dynamic VM HTTP Proxy
+
+[Service]
+Type=simple
+Restart=on-failure
+ExecStart=/usr/bin/env node /home/myuser/http-proxy/core/main.js
+
+[Install]
+WantedBy=multi-user.target
