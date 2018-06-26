@@ -14,7 +14,7 @@ kind of web application.
 
 ## Current Status
 
-This software is in a very early state of development currently. __Thus, you may use it at your very own risk.__
+This software has been in use on some of our servers for several years now. Nonetheless it is provided as-is and w/o any warranty. __Thus, you may use it at your very own risk.__
 
 Currently, support is limited to LXC containers. It is planned to refactor internal structure for providing 
 module-based support for different kinds of virtual machines.
