@@ -46,22 +46,34 @@ be available as /usr/bin/node. Please use latest stable release available at www
 
 ## Further Prerequisites
 
-Currently the proxy works with LXC, only. It's expecting all LXC containers to be located in /var/lib/lxc, even though you might choose differently folder in configuration file `node_modules/config.js`.
+Currently the proxy works with LXC, only. It's expecting all LXC containers to be located in /var/lib/lxc. This folder may be adjusted in configuration file `config.js`.
 
 
 
 # Installation
 
 1. [Download ZIP](https://github.com/cepharum/vm-http-proxy/archive/master.zip) to your physical host running LXC containers und unzip it into folder of your choice. It's okay to put it under /opt or into subfolder of your unprivileged user's home directory.
-2. Copy `node_modules/config.js.dist` to `node_modules/config.js`.
-3. Adjust configuration in file `node_modules/config.js`. Basically, adjust the IPv4 address to listen on for incoming requests to be forwarded.
+2. Copy `config.js.dist` to `config.js`.
+3. Adjust configuration in file `config.js`. Basically, adjust the IPv4 address to listen on for incoming requests to be forwarded.
 4. Invoke run.sh to instantly test the proxy.
 
 ## Install System Service
 
 ### Ubuntu Linux
 
+#### Using Upstart (until 14.04 LTS)
+
 In Ubuntu Linux you may install new upstart job like this:
 
-1. Update `http-proxy.conf` to contain proper pathname of run.sh.
+1. Update `http-proxy.conf` to contain proper pathname. Change `/home/myuser/http-proxy` to the pathname of local installation folder of http-proxy.
 2. Copy `http-proxy.conf` to `/etc/init`.
+3. Start service w/ `start http-proxy`
+
+#### Using systemd (since 16.04 LTS)
+
+When using systemd you may install http-proxy as a service like this:
+
+1. Update `http-proxy.service` to contain proper pathname. Change `/home/myuser/http-proxy` to the pathname of local installation folder of http-proxy.
+2. Copy `http-proxy.service` to `/etc/systemd/system`.
+3. Let systemd discover this new service by running `systemctl daemon-reload`.
+4. Start service w/ `systemctl start http-proxy`.
