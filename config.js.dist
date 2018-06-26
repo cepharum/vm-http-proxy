@@ -22,89 +22,81 @@
 module.exports = {
 
 	/**
-	 * IP address to listen on for incoming HTTP/HTTPS requests (default is 0.0.0.0)
+	 * IP address to listen on for incoming HTTP/HTTPS requests 
+	 * (default is 0.0.0.0).
 	 */
-
 	ipAddress: "123.45.67.89",
 
 	/**
-	 * pathname of root folder containing all LXC VMs
+	 * Selects pathname of root folder containing all LXC VMs.
 	 */
-
-	lxcRootFolder : "/var/lib/lxc",
+	lxcRootFolder: "/var/lib/lxc",
 
 	/**
-	 * switch turning on/off HTTPS support on port 443
+	 * Selects whether or not supporting HTTPS on port 443.
 	 */
+	enableHttps: true,
 
-	enableHttps : true,
+	/**
+	 * Set true to redirect all http requests to https using same domain and path.
+	 */
+	forceHttps: false,
 
         /**
-         * provide name of HTTPS host proxying all requests for sharing single certificate
+         * Selects name of HTTPS host proxying all requests for sharing single certificate.
 	 *
 	 * Incoming HTTPS requests on this hostname are expected to select VM by name as
 	 * prefix of URL's pathname. Omit this property here for proxy always expecting
 	 * name of addressed VM this way on HTTPS requests.
          */
-
-        sslHostname : 'secure.example.com',
+	sslHostname: 'secure.example.com',
 
 	/**
-	 * filename of certificate file to use on providing HTTPS
+	 * Provides name of certificate file to use on providing HTTPS.
 	 */
-
-	certificateFilename : "/etc/ssl/snakeoil.cert.pem",
+	certificateFilename: "/etc/ssl/snakeoil.cert.pem",
 
 	/**
-	 * set true to redirect all http requests to https using same domain and path
+	 * Provides name of certificate's key file to use on providing HTTPS.
 	 */
-
-	forceHttps: false,
+	certificateKeyFilename: "/etc/ssl/snakeoil.key.pem",
 
 	/**
-	 * filename of certificate's key file to use on providing HTTPS
+	 * Selects VM plugin to operate with.
 	 */
-
-	certificateKeyFilename : "/etc/ssl/snakeoil.key.pem",
-
-	/**
-	 * select VM plugin to operate with
-	 */
-
-	vmPlugin : require( "./lib/lxc" ),
+	vmPlugin: require( "./lib/lxc" ),
 
 	/**
-	 * selects minimum level of messages to be logged
+	 * Selects minimum level of messages to be logged.
 	 *
-	 * choose one of: debug, info, error
+	 * Choose one out of "debug", "info" or "error".
 	 */
-
-	minLogLevel : "info",
+	minLogLevel: "info",
 
 	/**
-	 * list of hostname rewrites
+	 * Lists hostnames to be mapped.
 	 *
-	 * This list is processed prior to looking up virtual machine matching
-	 * hostname of current request. It is working on request's hostname, only.
+	 * This list is processed prior to looking up names of virtual machines
+	 * matching hostname of current request. It is working on request's 
+	 * hostname, only.
 	 */
-
 	rewrites: [
 		{ from: "some.host.name", to: "some.new.host.name" },
 		{ from: /^matching\.hostname\.(.+)$/, to: "replacing.hostname.$1" }
 	],
 
 	/**
-	 * set of redirection rules
+	 * Lists mappings for redirecting matching request URLs.
 	 *
-	 * redirections are precede any request forwarding and may be used e.g. to
-	 * force use of HTTPS on accessing a site
+	 * Redirections instruct clients to repeat request using different URL and
+	 * in that they precede any request forwarding. Thus they may be used e.g.
+	 * to force use of HTTPS on accessing a site
 	 *
-	 * @note: keep unset or empty list to disable redirection code for slightly
-	 *        improved performance
+	 * @note: Larger lists of redirections may have an increasing impact on 
+	 *        processing performance.
 	 */
-
 	redirections : [
 		[ /^http:\/\/(www.)?mydomain.com\/(.*)$/, "https://secure.mydomain.com/www.mydomain.com/$2" ],
-		[ /^htts:\/\/(www2.)?mydomain.com\/(.*)$/, "https://secure.mydomain.com/www.mydomain.com/$2" ],
+		[ /^https:\/\/(www2.)?mydomain.com\/(.*)$/, "https://secure.mydomain.com/www.mydomain.com/$2" ],
 	]
 };
