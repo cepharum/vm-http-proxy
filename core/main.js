@@ -120,7 +120,7 @@ function http_listener( request, response, blnSecure ) {
 	 * extract name of host this request is actually targeting at
 	 */
 
-	if ( ctx.isHttps && ( !CONFIG.sslHostname || request.headers.host === CONFIG.sslHostname ) ) {
+	if ( ctx.isHttps && ( !CONFIG.sslHostname || request.headers.host === CONFIG.sslHostname ) && !CONFIG.disableSslProxy ) {
 		// HTTPS: extract first part of pathname to select host
 
 		// extract pathname from request URL and split into pieces
