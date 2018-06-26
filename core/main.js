@@ -24,11 +24,12 @@ var HTTPS    = require( "https" );
 var FS       = require( "fs" );
 var URL      = require( "url" );
 
-var CONFIG   = require( "config" );
-var REDIRECT = require( "redirect" );
-var REWRITE  = require( "rewrite" );
-var NETWORK  = require( "network" );
-var LOG      = require( "log" );
+var CONFIG   = require( "../config" );
+
+var REDIRECT = require( "../lib/redirect" );
+var REWRITE  = require( "../lib/rewrite" );
+var NETWORK  = require( "../lib/network" );
+var LOG      = require( "../lib/log" );
 
 // ----------------------------------------------------------------------------
 

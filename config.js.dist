@@ -71,7 +71,7 @@ module.exports = {
 	 * select VM plugin to operate with
 	 */
 
-	vmPlugin : require( "lxc" ),
+	vmPlugin : require( "./lib/lxc" ),
 
 	/**
 	 * selects minimum level of messages to be logged
